@@ -20,6 +20,7 @@ target/
 *.ipr
 # mvnw wrapper files
 .mvn
+.idea
 mvnw
 mvnw.cmd
 ### NetBeans ###
