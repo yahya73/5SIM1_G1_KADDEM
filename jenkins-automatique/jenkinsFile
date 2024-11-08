@@ -1,0 +1,38 @@
+
+pipeline {
+    agent any
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+
+        stage('Git') {
+            steps {
+                git branch: 'salim', changelog: false, poll: false, url: 'https://github.com/yahya73/KADDEM_DEVOPS.git'
+            }
+        }
+
+        stage('Testing Maven') {
+            steps {
+                sh 'mvn -version'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean install -DskipITs'
+            }
+        }
+
+        stage('Display Date') {
+            steps {
+                script {
+                    def currentDate = new Date()
+                    echo "Current Date: ${currentDate}"
+                }
+            }
+        }
+     }
+}
