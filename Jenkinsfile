@@ -36,6 +36,12 @@ pipeline {
                 sh 'mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=Lotfica1920* -Dmaven.test.skip=true'
             }
         }
+
+        stage('NEXUS') {
+            steps {
+                sh 'mvn deploy -DskipTests'
+            }
+        }
     }
 
 }
