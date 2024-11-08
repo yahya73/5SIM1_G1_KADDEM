@@ -11,7 +11,7 @@ pipeline {
             }
         }
 
-    stage('Maven Clean') {
+        stage('Maven Clean') {
             steps {
 
                 sh 'mvn clean'
@@ -21,6 +21,19 @@ pipeline {
             steps {
 
                 sh 'mvn compile'
+            }
+        }
+
+        stage('JUNIT / MOCKITO' ) {
+            steps {
+
+                sh 'mvn test'
+            }
+        }
+
+        stage('MVN SONARQUBE') {
+            steps {
+                sh 'mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=Lotfica1920* -Dmaven.test.skip=true'
             }
         }
     }
