@@ -23,6 +23,6 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-
+    }
 
 }
