@@ -5,7 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-
+import static org.mockito.Mockito.lenient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +39,9 @@ public class EtudiantImplTest {
         etudiant.setIdEtudiant(1);
         etudiant.setNomE("Trabelsi");
         etudiant.setPrenomE("Lotfi");
-        etudiant.setOp(Option.GAMIX);
-        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
-        when(etudiantRepository.findById(1)).thenReturn(Optional.of(etudiant));
+        etudiant.setOp(Option.SIM);
+        lenient().when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
+        lenient().when(etudiantRepository.findById(1)).thenReturn(Optional.of(etudiant));
     }
 
     @Test
