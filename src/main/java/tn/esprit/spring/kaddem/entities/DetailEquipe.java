@@ -11,6 +11,7 @@ public class DetailEquipe implements Serializable{
     private Integer idDetailEquipe;
     private Integer salle;
     private String thematique;
+    private Integer test;
     @OneToOne(mappedBy="detailEquipe")
     private Equipe equipe;
     public DetailEquipe() {
