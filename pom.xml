@@ -107,7 +107,7 @@
     <distributionManagement>
         <repository>
         <id>deploymentRepo</id>
-        <name>kaddem</name>
+        <name>Nexus Repository</name>
         <url>http://192.168.33.0:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
