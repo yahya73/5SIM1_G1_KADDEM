@@ -108,7 +108,7 @@
         <repository>
         <id>deploymentRepo</id>
         <name>kaddem</name>
-        <url>http://192.168.33.0:8081/repository/kaddem/</url>
+        <url>http://192.168.33.0:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 </project>
