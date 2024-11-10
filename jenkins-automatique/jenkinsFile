@@ -28,7 +28,7 @@ pipeline {
 
                                  steps {
 
-                                     sh 'mvn sonar:sonar -Dsonar.token==squ_d0f3abf336050015a6f24cbd5f1538d199cc3277  -Dmaven.test.skip=true';
+                                     sh 'mvn sonar:sonar -Dsonar.token=squ_d0f3abf336050015a6f24cbd5f1538d199cc3277  -Dmaven.test.skip=true';
 
                                  }
 
