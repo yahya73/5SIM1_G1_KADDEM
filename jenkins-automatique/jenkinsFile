@@ -28,7 +28,7 @@ pipeline {
 
                                  steps {
 
-                                     sh 'mvn sonar:sonar Dsonar.login=admin -Dsonar.password=SalimMilan12$  -Dmaven.test.skip=true';
+                                     sh 'mvn sonar:sonar -Dsonar.token=squ_6a2bf4c90f75473d5bea7a32de4c9055ba35a536  -Dmaven.test.skip=true';
 
                                  }
 
