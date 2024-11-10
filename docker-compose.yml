@@ -1,0 +1,108 @@
+version: "3.8"
+
+services:
+  # MySQL database service
+  mysql_db:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "kaddem"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - my_shared_network
+
+  # App service
+  app:
+    build: .
+    depends_on:
+      - mysql_db
+    restart: on-failure
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://mysql_db:3306/kaddem?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+        "spring.datasource.username": "root",
+        "spring.datasource.password": "",
+        "spring.jpa.show-sql": "true",
+        "spring.jpa.hibernate.ddl-auto": "update",
+        "server.servlet.context-path": "/kaddem",
+        "server.port": "8089",
+        "management.endpoints.web.exposure.include": "*",
+        "management.endpoint.prometheus.enabled": "true",
+        "management.endpoints.web.base-path": "/actuator",
+        "management.server.port": "8089",
+        "management.server.base-path": "/kaddem"
+      }'
+    volumes:
+      - .m2:/root/.m2
+      - .:/workdir/server/src
+      - ./src/main/resources/application.yml:/workdir/server/src/main/resources/application.yml
+    stdin_open: true
+    tty: true
+    networks:
+      - my_shared_network
+
+  # SonarQube service
+  sonarqube:
+    image: sonarqube
+    container_name: sonarqube
+    restart: unless-stopped
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://172.18.0.3:5432/sonar
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube-extensions:/opt/sonarqube/extensions
+      - sonarqube-logs:/opt/sonarqube/logs
+    networks:
+      - my_shared_network
+
+  # PostgreSQL service for SonarQube
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=sonar
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - my_shared_network
+
+  # Nexus service
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus-data:/nexus-data
+    environment:
+      - NEXUS_SECURITY_RANDOMPASSWORD=false
+      - NEXUS_ADMIN_PASSWORD=admin123
+      - NEXUS_CONTEXT_PATH=/nexus
+    networks:
+      - my_shared_network
+
+volumes:
+  db:
+  sonarqube-extensions:
+  sonarqube-logs:
+  postgres-data:
+  nexus-data:
+
+networks:
+  my_shared_network:
+    external: true
