@@ -13,11 +13,25 @@ pipeline {
                 git branch: 'salim', changelog: false, poll: false, url: 'https://github.com/yahya73/KADDEM_DEVOPS.git'
             }
         }
-          stage('Testing Maven') {
-                     steps {
-                         sh 'mvn -version'
-                     }
-                 }
+        stage ('SonarQube') {
+
+                    steps {
+
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=KairouanMilan123$ -Dmaven.test.skip=true';
+
+                    }
+
+                }
+                stage ('Nexus') {
+                    steps {
+                        sh 'mvn deploy -DskipTests'
+                          }
+                }
+                 stage('Testing Maven') {
+                                      steps {
+                                          sh 'mvn -version'
+                                      }
+                                  }
 
              stage('Build') {
                  steps {
@@ -25,4 +39,5 @@ pipeline {
                  }
              }
        }
+
 }
