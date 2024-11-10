@@ -35,7 +35,7 @@ pipeline {
                              }
                              stage ('Nexus') {
                                  steps {
-                                     sh 'mvn deploy -DskipTests -Dusername=admin -Dpassword=nexus'
+                                     sh 'mvn clean deploy -DskipTests -Dusername=admin -Dpassword=nexus'
                                        }
                              }
        }
