@@ -42,6 +42,28 @@ pipeline {
                 sh 'mvn deploy -DskipTests'
             }
         }
+
+         stage('Build Docker') {
+            steps {
+                sh "docker build -t lotfitrabelsi/kaddembackend ."
+            }
+        }
+    
+    
+        stage('Docker Login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockercred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                sh 'docker login -u lotfitrabelsi -p $DOCKERHUB_PASSWORD'
+                }
+            }
+        }   
+
+        stage('Docker Push') {
+            steps {
+                sh "docker push lotfitrabelsi/kaddembackend"
+            }
+        }
+        
     }
 
 }
