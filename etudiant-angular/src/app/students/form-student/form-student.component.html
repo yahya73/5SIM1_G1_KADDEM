@@ -1,0 +1,81 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Ajouter etudiant  </h5>
+        </div>
+        <div class="card-body">
+          <form  #f="ngForm" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label for="nom">Nom </label>
+                 <input type="text" #nomE (ngModel)="nomE" name="nomE" id="nomE" class="form-control" placeholder="nom"
+				 
+				 required pattern="[A-Za-z]{3,12}$" #n="ngModel">
+				  <div class="alert alert-danger" *ngIf="n.invalid && n.touched">
+        <div *ngIf="n.hasError('required')">
+           this field is required
+          </div>
+    
+        <div *ngIf="n.hasError('pattern')">
+          error pattern
+       </div>
+    </div>
+                </div>
+              </div>
+        
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label for="prenom" >prenom</label>
+                 <input type="text" #prenomE (ngModel)="prenomE" name="prenomE" id="prenomE" class="form-control"
+          placeholder="prenom" required #p="ngModel">
+		   <div class="alert alert-danger" *ngIf="p.invalid && p.touched">
+      this field is required
+    </div>
+                </div>
+              </div>
+        
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label for="option">option:</label>
+        
+		   
+		   <select #op (ngModel)="op" name="op" class="form-control" required>
+      <option value="SIM">SIM</option>
+      <option value="GAMIX">GAMIX</option>
+      <option value="SE">SE</option>
+	   <option value="NIDS">NIDS</option>
+     
+
+
+    </select>
+
+
+              </div>
+       
+            </div>
+           
+            </div>
+
+
+     
+            <button type="submit" class="btn btn-danger" value="Register"  [disabled]="f.invalid"   >Ajouter etudiant</button>
+            <div class="row">
+             
+             
+            </div>
+          </form>
+           
+        </div>
+          </div>
+      
+    </div>
+    
+    </div>
+  </div>
+   
+  
