@@ -1,23 +1,24 @@
 package tn.esprit.spring.kaddem.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.*;
 
 @Entity
-public class Universite implements Serializable{
+public class Universite implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUniv;
     private String nomUniv;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Departement> departements;
+    private Set<Departement> departements = new HashSet<>(); // Initialize the set
+
     public Universite() {
-        // TODO Auto-generated constructor stub
+        // Default constructor
     }
 
     public Universite(String nomUniv) {
@@ -42,14 +43,16 @@ public class Universite implements Serializable{
     public Integer getIdUniv() {
         return idUniv;
     }
+
     public void setIdUniv(Integer idUniv) {
         this.idUniv = idUniv;
     }
+
     public String getNomUniv() {
         return nomUniv;
     }
+
     public void setNomUniv(String nomUniv) {
         this.nomUniv = nomUniv;
     }
-
 }
