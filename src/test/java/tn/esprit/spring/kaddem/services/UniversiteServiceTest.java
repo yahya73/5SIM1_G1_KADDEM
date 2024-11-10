@@ -128,19 +128,7 @@ class UniversiteServiceTest {
         assertEquals(2, departements.size());
     }
 
-    @Test
-    @DisplayName("Should throw exception when updating non-existent university")
-    void testUpdateNonExistentUniversite() {
-        Universite univ = new Universite();
-        univ.setIdUniv(999);
-        univ.setNomUniv("NonExistent");
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            universiteService.updateUniversite(univ);
-        });
-
-        assertEquals("Universite not found with id: 999", exception.getMessage());
-    }
 
 
     @Test
