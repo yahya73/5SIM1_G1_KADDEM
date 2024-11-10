@@ -63,6 +63,12 @@ pipeline {
                 sh "docker push lotfitrabelsi/kaddembackend"
             }
         }
+
+        stage('docker compose') {
+            steps {
+                sh "docker-compose up -d "
+            }
+        }
         
     }
 
