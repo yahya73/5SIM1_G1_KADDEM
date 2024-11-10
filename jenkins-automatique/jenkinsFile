@@ -1,6 +1,10 @@
 
 pipeline {
     agent any
+     tools {
+            jdk 'JAVA_HOME'
+            maven 'M2_HOME'
+        }
     stages {
         stage('Hello') {
             steps {
@@ -24,6 +28,15 @@ pipeline {
                      sh 'mvn clean install -DskipITs'
                  }
              }
+              stage('Display Date') {
+                         steps {
+                             script {
+                                 def currentDate = new Date()
+                                 echo "Current Date: ${currentDate}"
+                             }
+                         }
+                }
+
              stage ('SonarQube') {
 
                                  steps {
@@ -38,6 +51,19 @@ pipeline {
                                      sh 'mvn clean deploy -DskipTests -Dusername=admin -Dpassword=nexus'
                                        }
                              }
+                             stage ('dockercompose') {
+                                                             steps {
+                                                                     sh 'docker compose down '
+                                                                     sh 'docker compose up -d'
+                                                                       }
+                                                             }
+
+                                                 stage('CI - Testing Maven') {
+                                                           steps {
+                                                                     echo 'Running Maven tests...'
+                                                                     sh 'mvn test'
+                                                                 }
+                                                             }
        }
 
 }
