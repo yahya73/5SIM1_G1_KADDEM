@@ -1,11 +1,6 @@
 
 pipeline {
     agent any
-    environment {
-                GRAFANA_API_KEY = credentials('sa-1-salim')
-                GRAFANA_URL = 'http://192.168.50.4:3000'
-                PROMETHEUS_URL = 'http://localhost:9090'
-            }
     tools {
             jdk 'JAVA_HOME'
             maven 'M2_HOME'
