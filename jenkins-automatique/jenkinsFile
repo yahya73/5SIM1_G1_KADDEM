@@ -59,11 +59,7 @@ pipeline {
                                        sh 'docker compose up -d'
                                                   }
                                  }
-                              stage('Use Existing Grafana Dashboard') {
-                                         steps {
-                                        ${GRAFANA_URL}/d/haryan-jenkins/jenkins3a-performance-and-health-overview"
-                                              }
-                                         }
+                             
 
 
 
