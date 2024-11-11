@@ -1,6 +1,16 @@
 
 pipeline {
     agent any
+    environment {
+                GRAFANA_API_KEY = credentials('grafana-api-key')
+                GRAFANA_URL = 'http://192.168.50.4:3000'
+                PROMETHEUS_URL = 'http://localhost:9090'
+            }
+    tools {
+            jdk 'JAVA_HOME'
+            maven 'M2_HOME'
+        }
+
     stages {
         stage('Hello') {
             steps {
@@ -13,11 +23,12 @@ pipeline {
                 git branch: 'salim', changelog: false, poll: false, url: 'https://github.com/yahya73/KADDEM_DEVOPS.git'
             }
         }
-                 stage('Testing Maven') {
-                                      steps {
-                                          sh 'mvn -version'
-                                      }
-                                  }
+        stage('Testing Maven') {
+                    steps {
+                        sh 'mvn -version'
+                    }
+        }
+
 
              stage('Build') {
                  steps {
@@ -60,6 +71,13 @@ pipeline {
                                                                      sh 'mvn test'
                                                                  }
                                                              }
+                              stage('Use Existing Grafana Dashboard') {
+                                         steps {
+                                         echo "Grafana dashboard for monitoring available at: ${GRAFANA_URL}/d/haryan-jenkins/jenkins3a-performance-and-health-overview"
+                                              }
+                                         }
+                                 }
+
        }
 
 }
