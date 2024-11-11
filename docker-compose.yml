@@ -28,8 +28,8 @@ services:
     networks:
       - my-network
   front_app:
-    build: ./etudiant-angular
-    image: front
+    build: ./etudiants-angular
+    image: front1
     restart: unless-stopped
     ports:
       - 80:80
