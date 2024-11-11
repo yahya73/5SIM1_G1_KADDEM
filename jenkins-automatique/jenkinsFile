@@ -76,8 +76,8 @@ pipeline {
                                          echo "Grafana dashboard for monitoring available at: ${GRAFANA_URL}/d/haryan-jenkins/jenkins3a-performance-and-health-overview"
                                               }
                                          }
-                                 }
+    }
 
-       }
+
 
 }
