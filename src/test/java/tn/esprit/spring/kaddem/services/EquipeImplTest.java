@@ -1,11 +1,10 @@
 package tn.esprit.spring.kaddem.services;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import tn.esprit.spring.kaddem.entities.Equipe;
 import tn.esprit.spring.kaddem.entities.Niveau;
 import tn.esprit.spring.kaddem.repositories.EquipeRepository;
@@ -13,6 +12,10 @@ import tn.esprit.spring.kaddem.repositories.EquipeRepository;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 class EquipeImplTest {
 
@@ -88,15 +91,16 @@ class EquipeImplTest {
     @Test
     void testUpdateEquipe() {
         // Arranger le comportement du mock
+        Equipe equipe = new Equipe(1, "Equipe A", Niveau.SENIOR);
         when(equipeRepository.save(any(Equipe.class))).thenReturn(equipe);
 
         // Appel de la méthode
-        Equipe updatedEquipe = new Equipe(1, "Equipe B", Niveau.SENIOR);
+        Equipe updatedEquipe = new Equipe(1, "Equipe A", Niveau.SENIOR);
         Equipe result = equipeService.updateEquipe(updatedEquipe);
 
         // Vérifications
         assertNotNull(result);
-        assertEquals("Equipe B", result.getNomEquipe());
+        assertEquals("Equipe A", result.getNomEquipe());
     }
 
     @Test
