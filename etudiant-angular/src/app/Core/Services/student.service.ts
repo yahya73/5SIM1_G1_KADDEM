@@ -11,7 +11,7 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
-  API = 'http://192.168.1.0:8082/kaddem/etudiant';
+  API = 'http://192.168.33.0:8082/kaddem/etudiant';
 
   public registerStudent(studentData: any) {
     return this.http.post<student>(this.API + '/add-etudiant', studentData);
